@@ -1,0 +1,31 @@
+package config
+
+import (
+	"log"
+	"os"
+
+	"github.com/joho/godotenv"
+)
+
+func loadEnv() error {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+		return err
+	}
+
+	appPort = os.Getenv(APP_PORT)
+	dbHost = os.Getenv(DB_HOST)
+	dbPort = os.Getenv(DB_PORT)
+	dbName = os.Getenv(DB_NAME)
+	dbPassword = os.Getenv(DB_PASSWORD)
+	dbUser = os.Getenv(DB_USER)
+	urlRedis = os.Getenv(URL_REDIS)
+	host = os.Getenv(HOST)
+	vnpTmncode = os.Getenv(VNP_TMNCODE)
+	vnpHashsecret = os.Getenv(VNP_HASHSECRET)
+	vnpUrl = os.Getenv(VNP_URL)
+	vnpReturnUrl = os.Getenv(VNP_RETURNURL)
+
+	return nil
+}
