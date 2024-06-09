@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/go-chi/render"
+	"github.com/google/uuid"
 )
 
 type paymentController struct {
@@ -43,7 +44,12 @@ func (c *paymentController) CreateBillOnline(w http.ResponseWriter, r *http.Requ
 	createDate := date.Format("20060102150405")
 	bankCode := payload.BankCode
 	expireDate := date.Add(15 * time.Minute).Format("20060102150405")
-	orderId := date.Format("150405")
+	orderId, errUUID := uuid.NewV6()
+
+	if errUUID != nil {
+		internalServerError(w, r, errUUID)
+		return
+	}
 
 	amount := payload.Amount * 100
 	orderInfo := payload.OrderDescription
@@ -57,7 +63,7 @@ func (c *paymentController) CreateBillOnline(w http.ResponseWriter, r *http.Requ
 		"vnp_TmnCode":    tmnCode,
 		"vnp_Locale":     locale,
 		"vnp_CurrCode":   currCode,
-		"vnp_TxnRef":     orderId,
+		"vnp_TxnRef":     orderId.String(),
 		"vnp_OrderInfo":  orderInfo,
 		"vnp_OrderType":  orderType,
 		"vnp_Amount":     amount,

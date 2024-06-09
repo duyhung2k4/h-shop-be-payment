@@ -5,4 +5,5 @@ type CreateBillOnlineRequest struct {
 	BankCode         string `json:"bankCode"`
 	OrderDescription string `json:"orderDescription"`
 	OrderType        string `json:"orderType"`
+	GroupBillId      uint   `json:"groupBillId"`
 }
