@@ -11,8 +11,8 @@ gen_key:
 		-nodes \
 		-days 365 \
 		-newkey rsa:2048 \
-		-keyout keys/server-account/private.pem \
-		-out keys/server-account/public.pem \
-		-config keys/server-account/san.cfg
+		-keyout keys/server-payment/private.pem \
+		-out keys/server-payment/public.pem \
+		-config keys/server-payment/san.cfg
 export_path:
 	export PATH=$PATH:$(go env GOPATH)/bin
